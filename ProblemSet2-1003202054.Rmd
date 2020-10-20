@@ -1,0 +1,122 @@
+---
+title: "General Survey 2017 - Linear Regression Model and Analysis"
+author: "Natasha Gulati"
+date: "October 19 2020"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+## General Social Survey, Cycle 31: 2017: Family
+
+
+# Natasha Gulati
+# October 19, 2020
+
+## Abstract
+
+This report highlights the linear regression model of the survey population. Variables of the survey population analyzed include age, the age at which they had their first children and the age at which they had their first marriage. The goal is to derive answer to the prediction of whether people are having children at an older age.
+
+## Introduction
+
+Every year it is evident that the mean age of people getting married is getting larger and larger every year due to the advancements in technology, society and Western Medicine (1. Statistics Canada, 2014).The goal of the analysis is to bring to light how this notion is coming to life in the 2010's, and how the age of people are increasing in relationship to when they have their first child. This influences the daily life of people living in this population greatly. The age at which couples have their first child impacts their financial life, their education and how old they will be when their child is at a certain age (other factors are included but not mentioned). 
+
+
+## Data
+
+The data is derived from the 31st Cycle of the General Family Social Survey of 2017, it was selected to analyze within the year of 2017, what were the ages that people got into a relationship or got married in relation to having their first child. There are a few caveats we see within the data, we see both males and females within this dataset as well, we are unsure if they are spouses in the data. 
+
+
+## Model
+The model used to illustrate these relations will be Linear Regression.The first plot will model the points by a scatter plot. The rest of the figures will be a linear model deconstructions. The explanatory and response variables included from this dataset will be: the age at which they started a relationship, the age at which they first got married and the age they were when their first child was born. Figures 1 and 2 are basic scatterplots to plot the raw data, and Figures 3 and 4 are linear regression models. The data will be taken from the raw data, which omits the variables of family income and adoption, which will impact our study.
+
+
+```{r, echo = FALSE, message = FALSE}
+library(readr)
+gss <- read_csv("gss.csv")
+attach(gss)
+
+```
+# Figure 1
+```{r, echo=FALSE}
+plot(gss$age_at_first_birth~gss$age_at_first_marriage)
+
+```
+
+
+# Figure 2
+```{r, echo=FALSE}
+
+abline(plot(gss$age_at_first_birth, gss$age))
+
+```
+
+
+# Figure 3
+```{r, echo=FALSE}
+gmod= lm(gss$age_at_first_birth~gss$age)
+
+plot(gmod)
+```
+
+
+
+
+
+# Figure 4
+```{r, echo=FALSE}
+summary(gmod)
+```
+
+
+
+
+## Results
+
+Referencing Figure 1, we can see that there is noticeable positive linear trend with the ages of people when they get married in response to when they have have children. We know that the typical age bearing years is from 18-35 for a woman since the 1930's (1). This plot displays what would be quite common in relation to our society now. However, interestingly this displays both male and female statistics, so we can make an educated prediction that there is a positive correlation of people being married and having children around the same time, within the ages of 18-35.
+
+
+Referencing Figure 2, it is evident there are two saturated clusters as to when they had children. we can see that the older generations of people who had children. The first cluster is around the top-left of the graph where from around 60-80 the age at which they had their first child was more around the ages of 18-25, and the second saturated cluster are those born later, who are now 20-40 years of age, have had their children around the age of 25-35. In the bottom-left of the graph, it is much more sparse than above, which indicates again that the people are waiting later in life to have children. This graph illustrates our goal of identifying the age of having children at a later age in contrast to the past.
+
+
+In Figure 3, there is a linear model where we regress age on the age at which they had their first child, deconstructed into four plots: Residuals versus fitted, Normal Q-Q, Scale- Location and Residuals versus Leverage points. The first plot, Residuals versus Fitted plot that the red line is slightly curved indicating that the linear relationship with age and birth age holds reasonably well. Towards the end the fitted line which resembles a quadratic relationship, though this does not skew the assumption of linearity.
+
+Figure 3's Normal Q-Q plot indicates a heavy tail on the upper portion which we can see is evident due to more extreme values found within the age explanatory variable. It is important to note that due to this, this sample does not follow a normal distribution. This is important to note due to the variability within the data (skewwed within gender, count, etc.).
+
+Again, within Figure 3, we can see that the red line is approximately horizontal, so we can say that the average magnitude of the standardized residuals is not varying as much as a function of the fitted value (2. Linear Regression Plots, 2019). This means that we can say that the fitted value and the residuals do not differ in a great number.
+
+Lastly, in Figure 3 there is the Residuals versus Leverage points which examines the outliers and how they impact the data. Our leverage line is largely skewwed downwards, so we can make the assumption that there are many leverage points, which would indicate that if we were to remove some data, it would greatly affect the overall results of the graph and analysis.
+
+In Figure 4, we have  the linear regression summary table. From this we derive the linear regression model of age and the age at which one has a child as:
+
+$$\hat{y}= 30.637753 -0.065853  x $$
+## Discussion
+
+The goal of this report is to highlight that the average age at which people get have their first child gets larger and larger as years go by. This is evident Figure 1 with the graph illustrates that many of those who were born in the 1930-1960's had children at a younger age than those born after 1960. The trend is surrounded by a lot of data that also assumes that there is a large variety of statistics in each age range, which means this is a change that can be seen very slowly. This graph merely shows a trend of what we know to be true, though it is not very strong (not many sparse areas).
+
+If we look at the linear regression model, $$\hat{y}= 30.637753 -0.065853  x $$, we can see that the intercept is around 30. We can say that this is the average starting point to which over the survey population, have a child (with regression on age). The slope point is a small negative value. This means that age and the age at which one has a child has an inverse relationship, which is exactly what we want to show. As one year goes by, (older someone gets), the younger they will have their children.This is more intuitively derived than directly evident. We can also see that the slope is very small, this means that the negative relationship is not strong, but it is there.
+
+
+## Weaknesses and Next Steps
+
+There a lot of lurking variables that come in question when analyzing the data. The graphs do not represent gender within the study. There may be a skewwed count of females to males in this data set. Also, it is possible for there to be bias within age and gender. For example, it could be possible that many of the males that have children are older when they have their first child in comparison to women, as their biological composition does not allow them to have a time-line.
+
+Also, this does not take into account fertility issues or an alternate hypothesis to the linear regression model. The larger-picture, or alternate theory could be that the women born later could face more fertility issues than those from older generations, or, possibly income issues, which delayed having a child. These predictions grant greater socio-economic data and detailed surveys about their region, family income, medical history, and more. All of these lurking variables and possible explanations need more specific testing and evidence that would contradict that having children at an older age is just natural phenomenon. 
+
+The evidence of the people having children at an older age is also further supported from the Linear versus Fitted plot, where we can see that the form is held to be quite linear. Though, due to the Normal Q-Q and Leverage plots highlighting the fact that the set is not Normal and is susceptible to change when the leverage points are removed, the prediction is not strongly supported.
+
+
+
+## References
+
+1. Bohnert, N. A. Milan and H. Lathe. 2014. Enduring diversity: Living arrangements of children in Canada over 100 years of the census. Demographic documents, Statistics Canada. Catalogue no. 91-0015 — No. 11.
+
+2. https://boostedml.com/2019/03/linear-regression-plots-scale-location-plot.html
+
+## Appendix
+
+Github Repository:
